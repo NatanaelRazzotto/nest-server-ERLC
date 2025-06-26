@@ -101,10 +101,15 @@ model NaturalPerson {
   birth               DateTime         @map("birth")
   person              Person           @relation(fields: [personId], references: [id]) // Obrigatório
   personId            String           @unique @map("person_id") // Unique para 1-1
+  employments Employment[]  // Relação com os vínculos empregatícios
+
 
   //Registro como altoridade
   yardRegistration    VehicleYardRegistration[] 
   trafficTickets      TrafficTickets[] 
+  //
+  criminalRecordsAsOffender      CriminalRecord[] @relation("OffenderRelation")
+  criminalRecordsAsAuthor        CriminalRecord[] @relation("AuthorRecordRelation")
 
   //
   @@map("natural_person")
@@ -118,10 +123,28 @@ model LegalPerson {
   INPJ         String   @unique @map("ipj")
   person       Person   @relation(fields: [personId], references: [id])
   personId     String   @unique @map("person_id")
+  employees Employment[] // Empregados desta empresa
   // outras relações específicas para empresas
   @@map("legal_person")
   @@index([INPJ]) // Índice para otimizar buscas por CPF
 }
+
+model Employment {
+  id              String         @id @default(uuid())
+  naturalPerson   NaturalPerson @relation(fields: [naturalPersonId], references: [id])
+  naturalPersonId String        @map("natural_person_id")
+
+  legalPerson     LegalPerson   @relation(fields: [legalPersonId], references: [id])
+  legalPersonId   String        @map("legal_person_id")
+
+  position        String
+  hiredAt         DateTime      @default(now()) @map("hired_at")
+  dismissedAt     DateTime?     @map("dismissed_at")
+
+  @@unique([naturalPersonId, legalPersonId])
+  @@map("employment")
+}
+
 
 model Vehicle {
   id                String     @id @default(uuid())
@@ -186,6 +209,28 @@ model TrafficTickets { // REGISTRO DO Pátio de veículos
 
   @@map("traffic_tickets")
 }
+
+model CriminalRecord { // REGISTRO DO Pátio de veículos
+  id                String     @id @default(uuid())
+  descriptionSituation       String @map("description_situation") 
+  coast Float @map("coast") @default(0.00)  
+  timeOfConfinement Float @map("time_of_confinement") @default(0.00) 
+  paymentPending Boolean @map("payment_pending")  @default(true)  
+
+  // Autoridade Registrante
+  offender               NaturalPerson?   @relation("OffenderRelation", fields: [offenderID], references: [id])
+  offenderID             String?          @map("offender_Id")
+
+  // Autoridade Registrante
+  authorRecord           NaturalPerson?   @relation("AuthorRecordRelation", fields: [authorRecordID], references: [id])
+  authorRecordID         String?          @map("author_record_Id")
+
+  createdAt  DateTime   @default(now()) @map("created_at")
+  updatedAt  DateTime   @updatedAt @map("updated_at")
+
+  @@map("criminal_record")
+}
+
 
 
 

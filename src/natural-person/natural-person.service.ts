@@ -3,6 +3,7 @@ import { PrismaService } from 'prisma/prisma.service';
 
 import { UserService } from 'src/user/user.service';
 import { CreateNaturalPersonDto } from './dto/create-natural-person.dto';
+import { gerarCodigo5DigitosComDV } from 'src/utils/ultilFunctions';
 
 @Injectable()
 export class NaturalPersonService {
@@ -16,9 +17,9 @@ export class NaturalPersonService {
         });
     }
 
-    async getPersonCpf(cpf: string) {
+    async getPersonNPF(NPF: string) {
         return this.prisma.naturalPerson.findUnique({
-            where: { NPF : cpf},
+            where: { NPF : NPF},
         });
     }
 
@@ -36,7 +37,7 @@ export class NaturalPersonService {
             data: {
                 primaryName: primaryName,
                 lastName: lastName,
-                NPF: "121",//data.NPF,
+                NPF: gerarCodigo5DigitosComDV(),
                 birth: new Date(birth),    
                 person: {
                     create: {
@@ -46,10 +47,15 @@ export class NaturalPersonService {
                 }
             },
             include: {
-            person: true // se quiser retornar os dados da pessoa também
+            person: {
+                include : {
+                    user : true
+                }
+            }
             }
         });
 
+        console.log("🚀 ~ NaturalPersonService ~ createNaturalPersonNatural ~ naturalPerson:", naturalPerson)
         return naturalPerson;
         }
     

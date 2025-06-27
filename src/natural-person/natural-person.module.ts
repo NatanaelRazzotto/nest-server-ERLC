@@ -7,6 +7,7 @@ import { UserModule } from 'src/user/user.module';
 @Module({
   imports: [PrismaModule, UserModule],
   providers: [NaturalPersonService],
-  controllers: [NaturalPersonController]
+  controllers: [NaturalPersonController],
+   exports: [NaturalPersonService] // Exporta o UserService para ser usado em outros módulos
 })
 export class NaturalPersonModule {}

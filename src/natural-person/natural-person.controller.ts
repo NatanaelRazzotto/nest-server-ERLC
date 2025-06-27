@@ -17,7 +17,7 @@ export class NaturalPersonController {
         // Rota para buscar um usuário por id
     @Get('/cpf/:id')
     async findBySerialNumber(@Param('id') id: string) {
-        return this.naturalPersonService.getPersonCpf(id);
+        return this.naturalPersonService.getPersonNPF(id);
     }
 
     @Post()

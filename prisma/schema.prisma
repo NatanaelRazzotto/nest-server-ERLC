@@ -213,6 +213,7 @@ model TrafficTickets { // REGISTRO DO Pátio de veículos
 
 model CriminalRecord { // REGISTRO DO Pátio de veículos
   id                String     @id @default(uuid())
+  urlImage          String?             @map("url_image")
   descriptionSituation       String @map("description_situation") 
   coast Float @map("coast") @default(0.00)  
   timeOfConfinement Float @map("time_of_confinement") @default(0.00) 

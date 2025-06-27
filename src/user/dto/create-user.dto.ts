@@ -1,4 +1,4 @@
-// src/users/dto/create-user.dto.ts
+
 import { IsEmail, IsEnum, IsNotEmpty, IsString } from 'class-validator';
 
 export enum UserType {

@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'prisma/prisma.service';
 
-import { UserService } from 'src/user/user.service';
+import { UserService } from '../user/user.service';
 import { CreateNaturalPersonDto } from './dto/create-natural-person.dto';
-import { gerarCodigo5DigitosComDV } from 'src/utils/ultilFunctions';
+import { gerarCodigo5DigitosComDV } from '../utils/ultilFunctions';
 
 @Injectable()
 export class NaturalPersonService {

@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'prisma/prisma.service';
-import { UserService } from 'src/user/user.service';
+import { UserService } from '../user/user.service';
 import { CreateCriminalRecordDto } from './dto/create-criminal-record.dto';
-import { NaturalPersonService } from 'src/natural-person/natural-person.service';
+import { NaturalPersonService } from '../natural-person/natural-person.service';
 
 @Injectable()
 export class CriminalRecordService {

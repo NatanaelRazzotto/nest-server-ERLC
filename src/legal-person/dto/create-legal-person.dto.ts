@@ -1,4 +1,4 @@
-// src/users/dto/create-user.dto.ts
+
 import { IsDateString, IsEmail, IsEnum, IsNotEmpty, IsOptional, IsString, IsUUID, IsBoolean } from 'class-validator';
 
 export class CreateLegalPersonDto {

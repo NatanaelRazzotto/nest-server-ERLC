@@ -1,4 +1,12 @@
 import { Module } from '@nestjs/common';
+import { LegalPersonController } from './legal-person.controller';
+import { LegalPersonService } from './legal-person.service';
+import { PrismaModule } from 'prisma/prisma.module';
+import { UserModule } from 'src/user/user.module';
 
-@Module({})
+@Module({
+  imports: [PrismaModule, UserModule],
+  controllers: [LegalPersonController],
+  providers: [LegalPersonService]
+})
 export class LegalPersonModule {}

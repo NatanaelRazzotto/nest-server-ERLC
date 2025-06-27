@@ -2,6 +2,7 @@ import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { NaturalPersonService } from './natural-person.service';
 import { CreateNaturalPersonDto } from './dto/create-natural-person.dto';
 
+
 @Controller('pessoa-fisica')
 export class NaturalPersonController {
 

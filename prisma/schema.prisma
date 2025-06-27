@@ -73,7 +73,7 @@ model User {
   id         String     @id @default(uuid())
   nickname   String @map("nickname")
   nameServer   String @map("name_server")
-  email      String     @unique
+  idDiscord      String     @unique
   userType UserType @map("user_type")
   people Person[]
   createdAt  DateTime   @default(now()) @map("created_at")
@@ -85,6 +85,7 @@ model Person {
   id                String              @id @default(uuid())  
   createdAt         DateTime            @default(now()) @map("created_at")
   updatedAt         DateTime            @updatedAt @map("updated_at")
+  urlImage          String?             @map("url_image") // URL da imagem do perfil
   naturalPerson     NaturalPerson?      // Relacionamento 1-1 opcional
   legalPerson       LegalPerson?         // Relacionamento 1-1 opcional
   user              User?               @relation(fields: [userID], references: [id])

@@ -26,8 +26,9 @@ export class PersonService {
         // Criação simultânea de NaturalPerson
         naturalPerson: {
           create: {
-            name: data.name,
-            CPF: data.CPF,
+            primaryName: data.name,
+            lastName: "",
+            NPF: data.CPF,
             birth: data.birth,
           },
         },

@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'prisma/prisma.service';
 import { UserService } from '../user/user.service';
 import { CreateLegalPersonDto } from './dto/create-legal-person.dto';
+import { gerarCodigoINPJ } from 'src/utils/ultilFunctions';
 
 @Injectable()
 export class LegalPersonService {
@@ -34,7 +35,7 @@ export class LegalPersonService {
             data: {
                 companyName: companyName,
                 publicCompany: publicCompany,
-                INPJ: "121",//data.NPF,                 
+                INPJ: gerarCodigoINPJ(),                
                 person: {
                     create: {
                         urlImage: urlImage,
@@ -43,7 +44,11 @@ export class LegalPersonService {
                 }
             },
             include: {
-            person: true // se quiser retornar os dados da pessoa também
+              person: {
+                include : {
+                    user : true
+                }
+            }
             }
         });
 

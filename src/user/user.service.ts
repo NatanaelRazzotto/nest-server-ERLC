@@ -22,19 +22,26 @@ export class UserService {
     }
 
     async create(createUserDto: CreateUserDto) {
-        const { nickname, nameServer, userType = "PLAYER", idDiscord} = createUserDto;
- 
+        try{
+            const { nickname, nameServer, userType = "PLAYER", idDiscord} = createUserDto;
 
-        // Criação no banco
-        const user = await this.prisma.user.create({
-        data: {
-            nickname,
-            nameServer,
-            idDiscord, 
-            userType,
-        },
-        });
+            // Criação no banco
+            const user = await this.prisma.user.create({
+            data: {
+                nickname,
+                nameServer,
+                idDiscord, 
+                userType,
+            },
+            });
+            console.log("🚀 ~ UserService ~ create ~ user:", user)
+             return user;
+        }
+        catch(error){
+            console.log(error)
+             return error;
+        }
 
-        return user;
+       
   }
 }

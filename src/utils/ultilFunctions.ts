@@ -15,3 +15,17 @@ export function gerarCodigo5DigitosComDV() {
   return `${base.join('')}${dv}`;
 }
 
+export function gerarCodigoINPJ() {
+  const base = Array.from({ length: 8 }, () => Math.floor(Math.random() * 10));
+
+  // Pesos decrescentes de 2 a 9 (repetem se forem mais de 8 dígitos)
+  const pesos = [9, 8, 7, 6, 5, 4, 3, 2];
+
+  const soma = base.reduce((acc, num, i) => acc + num * pesos[i], 0);
+
+  let resto = soma % 11;
+  let dv = resto < 2 ? 0 : 11 - resto;
+
+  return `${base.join('')}${dv}`;
+}
+
